@@ -1,4 +1,4 @@
-# Starting point
+# nah
 
 [![build-ublue](https://github.com/ubluster/nah/actions/workflows/build.yml/badge.svg)](https://github.com/ubluster/nah/actions/workflows/build.yml)
 
