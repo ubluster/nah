@@ -69,7 +69,7 @@ echo "Preparing the nix install script"
 
 sleep 5
 
-yes | sh <(curl -L https://nixos.org/nix/install) --daemon >/dev/null 2>&1
+sh <(curl -L https://nixos.org/nix/install) --daemon
 
 echo "Nix installer has Finished running"
 sleep 1
@@ -89,6 +89,8 @@ sleep 1
 
 echo "Making a nix backup"
 
+echo "Installing nix backup"
+
 sudo mkdir /opt/nb
 sudo cp -R /nix /opt/nb
 
@@ -105,7 +107,6 @@ EOF
 sudo chmod a+x /opt/nb/reset-nix
 
 sudo echo "Finished installing nix backup"
-
 sleep 1
 
 sudo echo "Deleting existing files that have the same name if /usr/local/bin (if you have any)"
@@ -144,24 +145,12 @@ sudo ln -s /nix/var/nix/profiles/default/bin/nix-store /usr/local/bin
 
 sudo echo "Finished linking"
 
-
 echo "Modifying configurations"
 
 sleep 1
 
-sudo rm -f /etc/nix/nix.conf 
-
-
-sudo tee /etc/nix/nix.conf <<EOF
-experimental-features = nix-command flakes
-build-users-group = nixbld
-EOF
-
-sudo rm -f /etc/profile.d/nix-app-icons.sh 
-
-sudo tee /etc/profile.d/nix-app-icons.sh <<EOF
-XDG_DATA_DIRS="$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share:$XDG_DATA_DIRS"
-EOF
+sudo rm -f /etc/nix/nix.conf ; sudo wget -P /etc/nix https://raw.githubusercontent.com/dnkmmr69420/nix-installer-scripts/main/other-files/nix.conf
+sudo rm -f /etc/profile.d/nix-app-icons.sh ; sudo wget -P /etc/profile.d https://raw.githubusercontent.com/dnkmmr69420/nix-installer-scripts/main/other-files/nix-app-icons.sh
 
 sleep 1
 
